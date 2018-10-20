@@ -9,7 +9,7 @@
 
 function githubin($atts)
 {
-	/*
+	/* urls de prueba
 	$url="https://github.com/chromium/chromium";
 	$url="https://github.com/chromium/chromium/blob/master/README.md";
 	$url="https://github.com/chromium/chromium?files=1";
@@ -17,15 +17,13 @@ function githubin($atts)
 	$url="https://github.com/chromium";
 	$url="https://github.com/qutebrowser/qutebrowser";
 	$url="https://github.com/qutebrowser/qutebrowser/blob/master/README.asciidoc";
-	*/
-	
 	$url="https://github.com/laresistenciadelbit";
-	
-	
-	if(isset($atts["url"]))
+	*/
+		
+	if(isset($atts["url"]) && $atts["url"]!="PUT_GITHUB_URL_HERE")
 		$url=$atts["url"];
 	else
-		echo'';//return;
+		return; // con plugins como elementor que previsualizan constantemente los posts, se volvía loco al previsualizar sin url el shortcode
 	
 	if(isset($atts["type"]))
 		$type=$atts["type"];//'readme','file','folder','repos'; //OPCIONAL, se autodetecta
@@ -110,7 +108,7 @@ function githubin($atts)
 		}
 		else
 		{
-			if( ($posiblefile[strlen($posiblefile)-2-1]=='.' && strtolower($posiblefile[strlen($posiblefile)-1-1])=="m" &&  strtolower($posiblefile[strlen($posiblefile)-1])=="d") || ($posiblefile[strlen($posiblefile)-8-1]=='.' && $posiblefile[strlen($posiblefile)-7-1]=='a' && $posiblefile[strlen($posiblefile)-6-1]=='s' &&  $posiblefile[strlen($posiblefile)-5-1]=='c' )   )
+			if( ($posiblefile[strlen($posiblefile)-2-1]=='.' && strtolower($posiblefile[strlen($posiblefile)-1-1])=="m" &&  strtolower($posiblefile[strlen($posiblefile)-1])=="d") || ( strlen($posiblefile)>9 && $posiblefile[strlen($posiblefile)-8-1]=='.' && $posiblefile[strlen($posiblefile)-7-1]=='a' && $posiblefile[strlen($posiblefile)-6-1]=='s' &&  $posiblefile[strlen($posiblefile)-5-1]=='c' )   )
 				$type='readme';	// .md & .asciidoc
 			else
 			{
@@ -184,8 +182,8 @@ function githubin($atts)
 	$content=preg_replace('/<\/h[1-3]>/imu','</b>',$content);
 	
  //reemplazamos links del repositorio con la ruta absoluta:
-	$replaceto='<a href="https://github.com/'.$gitacc.'/';
-	$content=preg_replace('/\<a href="\/'.$gitacc.'\//imu',$replaceto,$content);
+	$replaceto='href="https://github.com/'.$gitacc.'/';
+	$content=preg_replace('/href="\/'.$gitacc.'\//imu',$replaceto,$content);
 	
  //reemplazamos links de imágenes del repositorio con la ruta absoluta:
 	$replaceto='<img src="https://github.com/'.$gitacc.'/';
