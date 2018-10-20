@@ -1,7 +1,12 @@
 ## githubin
 
+![Alt repo_widget.png](wp_screenshots/repo_widget.png?raw=true "repo_widget.png")
+
 ENG
 ---
+
+Put github content in your wordpress site easily.
+Either in a post or a widget you can get a file list, repositories or a single file from github.
 
 This plugin creates a shortcode and two buttons in the post editor (text section)
 
@@ -11,9 +16,9 @@ For better embed visualization it automatically gets the mobile version content 
 
 The buttons just print the shortcode in the editor in this format:
 
-[github_box url="PUT_GITHUB_URL_HERE" border="radius" style="box" x="300" y="300" fgcolor="#333" bgcolor="#fafafa" disable_images="false"]
+>[github_box url="PUT_GITHUB_URL_HERE" border="radius" style="box" x="300" y="300" fgcolor="#333" bgcolor="#fafafa" disable_images="false"]
 
-[github_box url="PUT_GITHUB_URL_HERE" border="false" style="none" fgcolor="none" bgcolor="none" disable_images="false"]
+>[github_box url="PUT_GITHUB_URL_HERE" border="false" style="none" fgcolor="none" bgcolor="none" disable_images="false"]
 
 The only difference between one and the other is that the first (github_box) 
 put the github content into a scrollable box and the github_content button leave the content
@@ -57,19 +62,21 @@ The variables:
 ESP
 ---
 
-
+Pon contenido de github en tu wordpress de manera sencilla.
+Ya sea en un post o en un widget puedes obtener un listado de ficheros, repositorios,
+o un fichero concreto de github.
 
 Este plugin crea un shortcode y dos botones en el editor de posts (sección de texto)
-<post_editor.png>
+![Alt post_editor.png](wp_screenshots/post_editor.png?raw=true "post_editor.png")
 
 Para mejor visualización del contenido el plugin automáticamente toma la versión
 del contenido móvil de github.
 
 Los botones del editor simplemente ponen el shortcode en el editor en este formato:
 
-[github_box url="PUT_GITHUB_URL_HERE" border="radius" style="box" x="300" y="300" fgcolor="#333" bgcolor="#fafafa" disable_images="false"]
+>[github_box url="PUT_GITHUB_URL_HERE" border="radius" style="box" x="300" y="300" fgcolor="#333" bgcolor="#fafafa" disable_images="false"]
 
-[github_box url="PUT_GITHUB_URL_HERE" border="false" style="none" fgcolor="none" bgcolor="none" disable_images="false"]
+>[github_box url="PUT_GITHUB_URL_HERE" border="false" style="none" fgcolor="none" bgcolor="none" disable_images="false"]
 
 La única diferencia entre uno y otro es que el primero (github_box)
 pone el contenido en una caja desplegable (scroll) y el botón github_content
