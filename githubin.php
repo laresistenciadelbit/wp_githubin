@@ -189,6 +189,9 @@ function githubin($atts)
 	$replaceto='<img src="https://github.com/'.$gitacc.'/';
 	$content=preg_replace('/\<img src="\/'.$gitacc.'\//imu',$replaceto,$content);
 
+ //evitamos mas cajas de [github_box] dentro
+	$content=preg_replace('/\[github_box/imu','<span>[</span>github_box',$content);
+	$content=preg_replace('/\&\#91\;github_box/imu','<span>[</span>github_box',$content);
 	
 	echo '<div style=" '.$style_var.$bgcolor_var.$fgcolor_var.$border_var.'
 	 padding:8px;">'.$content.'</div>';
