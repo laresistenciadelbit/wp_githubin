@@ -2,8 +2,8 @@
 
 ![Alt repo_widget.png](wp_screenshots/repo_widget.png?raw=true "repo_widget.png")
 
-ENG
----
+ENGLISH
+-------
 
 Put github content in your wordpress site easily.
 Either in a post or a widget you can get a file list, repositories or a single file from github.
@@ -69,8 +69,8 @@ The variables:
 	Number of seconds before it rebuilds the cache file (default is 10800seconds=3hours)
 	
 
-ESP
----
+ESPAÑOL
+-------
 
 Pon contenido de github en tu wordpress de manera sencilla.
 Ya sea en un post o en un widget puedes obtener un listado de ficheros, repositorios,

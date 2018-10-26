@@ -235,7 +235,7 @@ function id_outdated_githubin($id,$cachetime)
 function get_cached_githubin($id)
 {	
 	$myfile = fopen(plugin_dir_path( __FILE__ )."githubin_".$id, "r");
-	if(!$myfile) 
+	if(!$myfile || filesize(plugin_dir_path( __FILE__ )."githubin_".$id)==0) 
 		return "false";
 	$content_githubin=fread($myfile,filesize(plugin_dir_path( __FILE__ )."githubin_".$id));
 	fclose($myfile);
