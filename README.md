@@ -57,7 +57,15 @@ The variables:
 > disable_fav="true"
 	
 	Remove the fav parragraphs from an user repositories
+	
+> id="IDNAME"
+	
+	Creates a cached file of the content. This setting is very recomended to use.
+	
+> cachetime="10800"	
 
+	Number of seconds before it rebuilds the cache file (default is 10800seconds=3hours)
+	
 
 ESP
 ---
@@ -119,3 +127,13 @@ Las variables:
 > disable_fav="true"
 	
 	Quita los párrafos de favoritos de los repositorios de un usuario
+	
+> id="IDNAME"
+	
+	Crea un fichero caché con el contenido. Es muy recomendado el uso de esta opción.
+	
+> cachetime="10800"	
+
+	Número de segundos antes de que se regenere el fichero caché de nuevo. (por defecto es 10800segundos=3horas)
+
+	
