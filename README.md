@@ -61,6 +61,8 @@ The variables:
 > id="IDNAME"
 	
 	Creates a cached file of the content. This setting is very recomended to use.
+	But remember: if you change later the attributes of the shortcode it won't update
+	until the cachetime has passed or unless you delete the cached file (in plugin's directory).
 	
 > cachetime="10800"	
 
@@ -131,7 +133,9 @@ Las variables:
 > id="IDNAME"
 	
 	Crea un fichero caché con el contenido. Es muy recomendado el uso de esta opción.
-	
+	Pero recuerda: si después cambias los atributos del shortcode no se actualizarán
+	hasta que haya pasado el tiempo de cache "cachetime" o hayas eliminado el fichero caché (en el directorio del plugin)
+
 > cachetime="10800"	
 
 	Número de segundos antes de que se regenere el fichero caché de nuevo. (por defecto es 10800segundos=3horas)
