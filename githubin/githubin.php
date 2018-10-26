@@ -211,7 +211,7 @@ function githubin($atts)
 		if(isset($atts["id"]) && $atts["id"]!="" )
 		{	
 			$myfile = fopen(plugin_dir_path( __FILE__ )."githubin_".$atts["id"], "w") or die("Unable to open file!");
-			fwrite($myfile, $final_box);
+			fwrite($myfile, $content_githubin);
 			fclose($myfile);
 		}
 	}
