@@ -7,6 +7,7 @@
 * Author URI: https://www.laresistenciadelbit.com
 */
 
+//P.S.:we don't need to avoid xss or php injection because github itself group elements in span labbels
 function githubin($atts)
 {
 	/* urls de prueba
