@@ -22,9 +22,12 @@ function githubin($atts)
 	*/
 	if(isset($atts["id"]) && !isset($atts["cachetime"]) )
 		$atts["cachetime"]=3*3600; //(3horas por defecto)
-		
-	if(isset($atts["id"]) && !id_outdated_githubin($atts["id"],(int)$atts["cachetime"] ) )	//si tiene id lo leemos del contenido cacheado que hemos generado
-	{
+	
+	$myserverip='127.0.0.1';	//if you want to recaching with a cron task avoiding cache time waiting.
+	$myserverip='199.188.200.107'; // <--- remove this line
+	
+	if( isset($atts["id"]) && !id_outdated_githubin($atts["id"],(int)$atts["cachetime"] ) && $_SERVER['REMOTE_ADDR']!=$myserverip )	//si tiene id lo leemos del contenido cacheado que hemos generado , solo si no es localhost
+	{	//cron recaching if $myserverip:  */15 * * * * curl https://url
 		$content_githubin=get_cached_githubin($atts["id"]);
 	}
 	
