@@ -23,11 +23,10 @@ function githubin($atts)
 	if(isset($atts["id"]) && !isset($atts["cachetime"]) )
 		$atts["cachetime"]=3*3600; //(3horas por defecto)
 	
-	$myserverip='127.0.0.1';	//if you want to recaching with a cron task avoiding cache time waiting.
-	$myserverip='199.188.200.107'; // <--- remove this line
+	$myserverip='127.0.0.1';
 	
 	if( isset($atts["id"]) && !id_outdated_githubin($atts["id"],(int)$atts["cachetime"] ) && $_SERVER['REMOTE_ADDR']!=$myserverip )	//si tiene id lo leemos del contenido cacheado que hemos generado , solo si no es localhost
-	{	//cron recaching if $myserverip:  */15 * * * * curl https://url
+	{	//cron recaching if server ip:  */15 * * * * curl https://url
 		$content_githubin=get_cached_githubin($atts["id"]);
 	}
 	
@@ -141,7 +140,8 @@ function githubin($atts)
 
 	//obtenemos el contenido
 		
-		$useragent = "Mozilla/5.0 (Linux; Android 4.4.".rand(1,4)."; C2105 Build/15.3.A.1.14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.93 Mobile Safari/537.36";
+		//$useragent = "Mozilla/5.0 (Linux; Android 4.4.".rand(1,4)."; C2105 Build/15.3.A.1.14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.93 Mobile Safari/537.36"; //android 4.4.*
+		$useragent = "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A5370a Safari/604.1"; //iphone os11
 
 		 $ch = curl_init($url);
 		 curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
@@ -177,7 +177,14 @@ function githubin($atts)
 		 }
 		 
 	 //limpiamos el footer
-		$content_githubin=preg_replace('/<footer class[\s\S]*<\/html>/imu','',$content_githubin);
+	 
+		if($type=='readme')
+			$content_githubin=preg_replace('/<\/article>[\s\S]*<\/html>/imu','',$content_githubin);
+		else
+		{
+			$content_githubin=preg_replace('/<div class=\"footer [\s\S]*<\/html>/imu','',$content_githubin); //ahora han cambiado en según que páginas footer por div class="footer
+			$content_githubin=preg_replace('/<footer class[\s\S]*<\/html>/imu','',$content_githubin);
+		}
 		
 		
 	 //quitamos las imágenes (si así se ha querido)
@@ -191,7 +198,7 @@ function githubin($atts)
 	 //quitamos los css	(ya las hemos quitado en el header)
 		//$content_githubin=preg_replace('/<link .+?\>/imu','',$content_githubin);
 		
-	 //convertimos los h1 y h2 y h3 en <b> para controlar el color en temas oscuros:
+	 //convertimos los h1 y h2 y h3 en <b> para controlar el color en temas oscuros y reducir el tamaño:
 		$content_githubin=preg_replace('/<h[1-3]>/imu','<b>',$content_githubin);
 		$content_githubin=preg_replace('/<\/h[1-3]>/imu','</b>',$content_githubin);
 		
