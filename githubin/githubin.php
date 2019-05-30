@@ -4,7 +4,7 @@
 * Description: Shortcode for a box with a github project.
 * Version: 1.0
 * Author: laresistenciadelbit
-* Author URI: https://www.laresistenciadelbit.com
+* Author URI: https://laresistenciadelbit.duriel.website
 */
 
 //P.S.:we don't need to avoid xss or php injection because github itself group elements in span labbels
@@ -21,11 +21,10 @@ function githubin($atts)
 	$url="https://github.com/laresistenciadelbit";
 	*/
 	if(isset($atts["id"]) && !isset($atts["cachetime"]) )
-		$atts["cachetime"]=3*3600; //(3horas por defecto)
+		$atts["cachetime"]=1*3600; //(1hora por defecto de cacheo)
 	
-	$myserverip='127.0.0.1';
-	
-	if( isset($atts["id"]) && !id_outdated_githubin($atts["id"],(int)$atts["cachetime"] ) && $_SERVER['REMOTE_ADDR']!=$myserverip )	//si tiene id lo leemos del contenido cacheado que hemos generado , solo si no es localhost
+	$myserverip='127.0.0.1'; //if you want to recaching with a cron task avoiding cache time waiting.
+	if( isset($atts["id"]) && !id_outdated_githubin($atts["id"],(int)$atts["cachetime"] ) && $_SERVER['REMOTE_ADDR']!=$myserverip )	//si tiene id lo leemos del contenido cacheado que hemos generado , solo si no es myserverip
 	{	//cron recaching if server ip:  */15 * * * * curl https://url
 		$content_githubin=get_cached_githubin($atts["id"]);
 	}
