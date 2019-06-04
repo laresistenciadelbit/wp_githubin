@@ -6,8 +6,6 @@
 * Author: laresistenciadelbit
 * Author URI: https://laresistenciadelbit.duriel.website
 */
-
-//P.S.:we don't need to avoid xss or php injection because github itself group elements in span labbels
 function githubin($atts)
 {
 	/* urls de prueba
@@ -16,8 +14,6 @@ function githubin($atts)
 	$url="https://github.com/chromium/chromium?files=1";
 	$url="https://github.com/chromium/chromium/blob/master/base/android/base_jni_onload.cc";
 	$url="https://github.com/chromium";
-	$url="https://github.com/qutebrowser/qutebrowser";
-	$url="https://github.com/qutebrowser/qutebrowser/blob/master/README.asciidoc";
 	$url="https://github.com/laresistenciadelbit";
 	*/
 	if(isset($atts["id"]) && !isset($atts["cachetime"]) )
