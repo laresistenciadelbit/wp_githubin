@@ -135,16 +135,6 @@ function githubin($atts)
 		
 		//$useragent = "Mozilla/5.0 (Linux; Android 4.4.".rand(1,4)."; C2105 Build/15.3.A.1.14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.93 Mobile Safari/537.36"; //android 4.4.*
 		$useragent = "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A5370a Safari/604.1"; //iphone os11
-
-		/* curl (not using anymore)
-		 $ch = curl_init($url);
-		 curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
-		 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		 curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-		 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-		 $content_githubin = curl_exec($ch);
-		 curl_close($ch);
-		*/
 		
 		//using wordpress request internal API (https://developer.wordpress.org/reference/classes/WP_Http/request/)
 		$args_rr = array('user-agent'=> apply_filters( 'http_headers_useragent', $useragent , $url ));
