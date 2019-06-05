@@ -6,7 +6,7 @@
 * Author: laresistenciadelbit
 * Author URI: https://laresistenciadelbit.duriel.website
 */
-function githubin($atts)
+function embed-githubin($atts)
 {
 	/* urls de prueba
 	$url="https://github.com/chromium/chromium";
