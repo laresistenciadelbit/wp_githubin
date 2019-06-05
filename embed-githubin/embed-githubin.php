@@ -1,6 +1,6 @@
 <?php
 /*
-* Plugin Name: githubin
+* Plugin Name: embed-githubin
 * Description: Shortcode for a box with a github project.
 * Version: 1.0
 * Author: laresistenciadelbit
