@@ -159,20 +159,39 @@ function githubin($atts)
 				//$content_githubin=preg_replace('/<\/pre>[\s\S]*<footer class/imu','</div> <footer class',$content_githubin);
 			 break;
 			 case 'repos':
-				$content_githubin=preg_replace('/<!DOCTYPE[\s\S]*?<div class=\"list repo-list/imu','<div class="list repo-list',$content_githubin);
+				//$content_githubin=preg_replace('/<!DOCTYPE[\s\S]*?<div class=\"list repo-list/imu','<div class="list repo-list',$content_githubin);
+				$content_githubin=preg_replace('/<!DOCTYPE[\s\S]*?<div id=\"user-repositories-list/imu','<div id="user-repositories-list',$content_githubin);
+				$content_githubin=preg_replace('/<!DOCTYPE[\s\S]*?<div class=\"org-repos repo-list/imu','<div class="org-repos repo-list',$content_githubin);
 			 break;
 		 }
 		 
 	 //limpiamos el footer
 	 
 		if($type=='readme')
-			$content_githubin=preg_replace('/<\/article>[\s\S]*<\/html>/imu','',$content_githubin);
+			$content_githubin=preg_replace('/<\/article>[\s\S]*<\/html>/imu','</article>',$content_githubin);
 		else
 		{
-			$content_githubin=preg_replace('/<div class=\"footer [\s\S]*<\/html>/imu','',$content_githubin); //ahora han cambiado en según que páginas footer por div class="footer
-			//$content_githubin=preg_replace('/<\/table>[\s\S]*<\/html>/imu','',$content_githubin);//para ficheros quitamos desde que finaliza la tabla de contenido </table> hasta el final
-			$content_githubin=preg_replace('/<footer class[\s\S]*<\/html>/imu','',$content_githubin);
+			if($type=='repos')
+			{
+				//$content_githubin=preg_replace('/<div class=(?!.[\s\S]*<div class=)[\s\S]*js-profile-tab-count-container[\s\S]*<\/html>/imu','',$content_githubin); //en los repositorios de organizaciones también hay más contenido que sobra ; forzamos a que coja el último match con -> MATCH(?!.[\s\S]*MATCH)  donde match es el último atributo a buscar
+				$content_githubin=preg_replace('/<\/ul>[\s\S]*<\/html>/imu','</ul></div>',$content_githubin);
+			}
+			else
+			{
+				$content_githubin=preg_replace('/<div class=\"footer [\s\S]*<\/html>/imu','',$content_githubin); //ahora han cambiado en según que páginas footer por div class="footer
+				//$content_githubin=preg_replace('/<\/table>[\s\S]*<\/html>/imu','',$content_githubin);//para ficheros quitamos desde que finaliza la tabla de contenido </table> hasta el final
+				$content_githubin=preg_replace('/<footer class[\s\S]*<\/html>/imu','',$content_githubin);
+			}
 		}
+		
+		if($type=='repos') //limpiamos el nuevo contenido que han añadido
+		{
+			//limpiamos bloques de licencias
+			$content_githubin=preg_replace('/<div class="f6 text-gray mt-2">[\s\S]*?<\/div>/imu','',$content_githubin);
+			$content_githubin=preg_replace('/<div class="text-gray f6 mt-2">[\s\S]*?<\/div>/imu','',$content_githubin);
+			
+		}
+		
 		if($type=='file')
 		{	//css de enlightment de github:
 			$content_githubin='
@@ -237,8 +256,16 @@ function githubin($atts)
 		//$content_githubin=preg_replace('/<link .+?\>/imu','',$content_githubin);
 		
 	 //convertimos los h1 y h2 y h3 en <b> para controlar el color en temas oscuros y reducir el tamaño:
-		$content_githubin=preg_replace('/<h[1-3]>/imu','<b>',$content_githubin);
-		$content_githubin=preg_replace('/<\/h[1-3]>/imu','</b>',$content_githubin);
+		if($type=='repos') //si es repositorio le damos estilo (ya que nos lo han cambiado todo)
+		{
+			$content_githubin=preg_replace('/<h[1-3].*?>/imu','
+<p style="padding-top:4px;margin-bottom:0;">
+<svg class="octicon octicon-repo" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"></path></svg>
+			',$content_githubin);
+		}
+		else
+			$content_githubin=preg_replace('/<h[1-3].*?>/imu','<p>',$content_githubin);
+		$content_githubin=preg_replace('/<\/h[1-3]?>/imu','</p>',$content_githubin);
 		
 	 //reemplazamos links del repositorio con la ruta absoluta:
 		$replaceto='href="https://github.com/'.$gitacc.'/';
