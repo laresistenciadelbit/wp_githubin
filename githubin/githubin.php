@@ -2,7 +2,7 @@
 /*
 * Plugin Name: embed-githubin
 * Description: Shortcode for a box with a github project.
-* Version: 1.0
+* Version: 1.1
 * Author: laresistenciadelbit
 * Author URI: https://laresistenciadelbit.meph.website
 */
