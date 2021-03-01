@@ -4,7 +4,7 @@
 * Description: Shortcode for a box with a github project.
 * Version: 1.1
 * Author: laresistenciadelbit
-* Author URI: https://laresistenciadelbit.meph.website
+* Author URI: https://laresistenciadelbit.diab.website
 */
 function githubin($atts)
 {
@@ -162,6 +162,13 @@ function githubin($atts)
 				//$content_githubin=preg_replace('/<!DOCTYPE[\s\S]*?<div class=\"list repo-list/imu','<div class="list repo-list',$content_githubin);
 				$content_githubin=preg_replace('/<!DOCTYPE[\s\S]*?<div id=\"user-repositories-list/imu','<div id="user-repositories-list',$content_githubin);
 				$content_githubin=preg_replace('/<!DOCTYPE[\s\S]*?<div class=\"org-repos repo-list/imu','<div class="org-repos repo-list',$content_githubin);
+				//quitamos todos los nuevos span que han añadido (2021-03-01)
+				while( preg_match( '/<span[\s\S]*?<\/span>/imu', $content_githubin) )
+					$content_githubin=preg_replace('/<span[\s\S]*?<\/span>/imu','',$content_githubin);
+				while( preg_match( '/<\/span>/imu', $content_githubin) )
+					$content_githubin=preg_replace('/<\/span>/imu','',$content_githubin);
+				while( preg_match( '/Updated <relative-time[\s\S]*?<\/relative-time>/imu', $content_githubin) )
+					$content_githubin=preg_replace('/Updated <relative-time[\s\S]*?<\/relative-time>/imu','',$content_githubin);
 			 break;
 		 }
 		 
