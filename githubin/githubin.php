@@ -19,7 +19,7 @@ function githubin($atts)
 	if(isset($atts["id"]) && !isset($atts["cachetime"]) )
 		$atts["cachetime"]=1*3600; //(1hora por defecto de cacheo)
 	
-	$myserverip='127.0.0.1'; //if you want to recaching with a cron task avoiding cache time waiting.
+	$myserverip='1.1.1.1'; //if you want to recaching with a cron task avoiding cache time waiting put here your server ip.
 	if( isset($atts["id"]) && !id_outdated_githubin($atts["id"],(int)$atts["cachetime"] ) && $_SERVER['REMOTE_ADDR']!=$myserverip )	//si tiene id lo leemos del contenido cacheado que hemos generado , solo si no es myserverip
 	{	//cron recaching if server ip:  */15 * * * * curl https://url
 		$content_githubin=get_cached_githubin($atts["id"]);
@@ -52,7 +52,7 @@ function githubin($atts)
 		
 		if(isset($atts["border"]) && ( $atts["border"]=="true" || $atts["border"]=="radius" ))
 		{
-			$border_var="border: 1px solid #EAEAEA;";//"true";//"true" si queremos borde.
+			$border_var="border: 1px solid #363a3d;";//"true";//"true" si queremos borde.
 			if($atts["border"]=="radius")
 				$border_var.="border-radius: 10px;";
 		}
@@ -148,9 +148,15 @@ function githubin($atts)
 			case 'readme':
 				$content_githubin=preg_replace('/<!DOCTYPE[\s\S]*?<article/imu','<article',$content_githubin);
 			 break;
-			 case 'folder':
-				$content_githubin=preg_replace('/<!DOCTYPE[\s\S]*?<div class=\"list files-list\"/imu','<div class="list files-list"',$content_githubin);
-				$content_githubin=preg_replace('/<\/div>[\s]*<footer class=/imu','<footer class',$content_githubin);	//quitamos el último </div> ya que empezamos desde el segundo div no desde el primero.
+			 case 'folder':	//actualizado 2021/05/02
+				$content_githubin="<style>.Box-row{display:flex;}</style>".$content_githubin;//añadimos estilo
+				$content_githubin=preg_replace('/<!DOCTYPE[\s\S]*?<div class=\"js-details-container Details\">/imu','<div>',$content_githubin);
+				//$content_githubin=preg_replace('<div role=\"columnheader\">[\s\S]*?<\/div>','',$content_githubin); //quitamos columnas absurdas
+				$content_githubin=preg_replace('/<\/div>[\s]*<\/div>[\s]*<\/div>[\s]*<\/div>[\s]*<\/main>[\s\S]*/imu','',$content_githubin);//desde </div></div></div></div></main> hasta el fin
+				$content_githubin=preg_replace('/<\/div>[\s]*<\/include-fragment>/imu','</div>',$content_githubin); //quitamos un include-fragment que sobraba
+				$content_githubin=preg_replace('/<time-ago[\s\S]*?<\/time-ago>/imu','',$content_githubin); //quitamos los time-ago
+				$content_githubin=preg_replace('/<a data-pjax=[\s\S]*?<\/a>/imu','',$content_githubin); //quitamos los <a data-pjax
+				$content_githubin=preg_replace('/<a style=\"opacity:0;\"[\s\S]*?<\/a>/imu','',$content_githubin);//quitamos contenido invisible (que ocupa espacio)
 			 break;
 			 case 'file':
 				$content_githubin=preg_replace('/<!DOCTYPE[\s\S]*?<table/imu','<table id="github_file" style="white-space: pre;"',$content_githubin);
@@ -169,6 +175,9 @@ function githubin($atts)
 					$content_githubin=preg_replace('/<\/span>/imu','',$content_githubin);
 				while( preg_match( '/Updated <relative-time[\s\S]*?<\/relative-time>/imu', $content_githubin) )
 					$content_githubin=preg_replace('/Updated <relative-time[\s\S]*?<\/relative-time>/imu','',$content_githubin);
+				//quitamos los poll-include-fragment para que no tenga links rotos internamente (2021-05-02)
+				while( preg_match( '/<poll-include-fragment[\s\S]*?<\/poll-include-fragment>/imu', $content_githubin) )
+					$content_githubin=preg_replace('/<poll-include-fragment[\s\S]*?<\/poll-include-fragment>/imu','',$content_githubin);
 			 break;
 		 }
 		 
@@ -287,7 +296,7 @@ function githubin($atts)
 		$content_githubin=preg_replace('/\&\#91\;github_box/imu','<span>[</span>github_box',$content_githubin);
 		
 		
-		$content_githubin='<div style=" '.$style_var.$bgcolor_var.$fgcolor_var.$border_var.'
+		$content_githubin='<div class="embed_github" style=" '.$style_var.$bgcolor_var.$fgcolor_var.$border_var.'
 		 padding:8px;">'.$content_githubin.'</div>';
 		 
 	 //si tiene id lo cacheamos (lo metemos en un fichero con su id con formato <githubin_ID>
