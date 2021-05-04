@@ -2,12 +2,12 @@
 Contributors: lrdb
 Tags: github, github embed, embed
 Requires at least: 2.7.0
-Tested up to: 5.2.1
+Tested up to: 5.7.1
 Requires PHP: 5.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Put github content in your wordpress site easily. Either in a post or a widget you can get a file list, repositories or a single file from github.
+Embed github content in your wordpress site easily. Either in a post or a widget you can get a file list, repositories or a single file from github.
 
 == Description ==
 This plugin creates a shortcode and add two buttons in the post editor.
@@ -78,40 +78,29 @@ just install it from wordpress.org plugins list or upload the plugin to the plug
 3. embed readme with or without images
 
 == Changelog ==
-* -remove coments
 
+2021-05-04
+updated to work with last github content
+
+--- old:
+
+* -remove coments
 * -using internal http request API from wordpress instead CURL:
 https://developer.wordpress.org/reference/classes/WP_Http/request/
-
 * cleaning code
-
 * -updated support to embed github files
-
 * little change
-
 * arreglos por cambio de código en github
-
 * avoid the rebuild cache time for localhost or some ip in $myserverip
-
 * comment ps
-
 * prevents loading cache file with size = 0
-
 * -forgot to update a variable name
-
 * readme: cache warning
-
 * -added content caching:
   &  attributes for save cache as githubin_ with  seconds to rebuild the cache.
-
 * evitamos más cajas de [github_box] dentro
-
-
 * -fix: comparing file name with a larger extension name is disabled
 -fix: plugin doesnt get content if no url has passed to it. (before, it got crazy with plugins like elementor which make a previous view of the post each few seconds)
-
 * image resize
-
 * readme changes
-
 * image change
