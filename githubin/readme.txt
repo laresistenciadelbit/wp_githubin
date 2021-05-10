@@ -7,20 +7,14 @@ Requires PHP: 5.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Embed github content in your wordpress site easily. Either in a post or a widget you can get a file list, repositories or a single file from github.
+Embed github content in your wordpress site. Either in a post or a widget you can get a file list, repositories or a single file from github.
 
 == Description ==
-This plugin creates a shortcode and add two buttons in the post editor.
+This plugin creates a shortcode for embedding github files, repositories, readmes or folders.
 
-For better embed visualization it automatically gets the mobile version content of github.
-
-The buttons in the editor just print the shortcode in this format:
+The shortcode format is (most settings are optional):
 
 >[github_box url="PUT_GITHUB_URL_HERE" border="radius" style="box" x="300" y="300" fgcolor="#333" bgcolor="#fafafa" disable_images="false"]
-
->[github_box url="PUT_GITHUB_URL_HERE" border="false" style="none" fgcolor="none" bgcolor="none" disable_images="false"]
-
-The only difference between one button and the other is that the first (github_box button) put the github content into a scrollable box and the other (github_content button) leave the content without a box.
 
 ...............................
 ...............................
@@ -71,6 +65,8 @@ The variables:
 
 == Installation ==
 just install it from wordpress.org plugins list or upload the plugin to the plugins folder.
+put it as shortcode with the correct format:
+[github_box url="PUT_GITHUB_URL_HERE" border="radius" style="box" x="300" y="300" fgcolor="#333" bgcolor="#fafafa" disable_images="false"]
 
 == Screenshots ==
 1. embed repositories list
@@ -79,10 +75,15 @@ just install it from wordpress.org plugins list or upload the plugin to the plug
 
 == Changelog ==
 
-2021-05-04
-updated to work with last github content
+2021-05-10
+*fixed main repository file listing
+*removed unnecesary columns in file listing
+*fixed embedding in blocks
 
---- old:
+2021-05-04
+*updated to work with last github content
+
+Old changelog:
 
 * -remove coments
 * -using internal http request API from wordpress instead CURL:

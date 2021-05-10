@@ -2,7 +2,7 @@
 /*
 * Plugin Name: embed-githubin
 * Description: Shortcode for a box with a github project.
-* Version: 1.11
+* Version: 1.12
 * Author: laresistenciadelbit
 * Author URI: https://laresistenciadelbit.diab.website
 */
@@ -148,15 +148,18 @@ function githubin($atts)
 			case 'readme':
 				$content_githubin=preg_replace('/<!DOCTYPE[\s\S]*?<article/imu','<article',$content_githubin);
 			 break;
-			 case 'folder':	//actualizado 2021/05/02
+			 case 'folder':	//actualizado 2021/05/10
 				$content_githubin="<style>.Box-row{display:flex;}</style>".$content_githubin;//añadimos estilo
 				$content_githubin=preg_replace('/<!DOCTYPE[\s\S]*?<div class=\"js-details-container Details\">/imu','<div>',$content_githubin);
-				//$content_githubin=preg_replace('<div role=\"columnheader\">[\s\S]*?<\/div>','',$content_githubin); //quitamos columnas absurdas
-				$content_githubin=preg_replace('/<\/div>[\s]*<\/div>[\s]*<\/div>[\s]*<\/div>[\s]*<\/main>[\s\S]*/imu','',$content_githubin);//desde </div></div></div></div></main> hasta el fin
+				$content_githubin=preg_replace('/<div role="columnheader"[\s\S]*?<\/div>/imu','',$content_githubin); //quitamos columnas absurdas
+				$content_githubin=preg_replace('/<button[\s\S]*?<\/button>/imu','',$content_githubin); //quitamos botones absurdos
+				$content_githubin=preg_replace('/<\/div>[\s]*<\/div>[\s]*<\/div>[\s]*<\/div>[\s]*<\/main>/imu','</main>',$content_githubin);//cambiamos </div></div></div></div></main> por </main> (por si no tuviese readme quitamos esos primero)
+				$content_githubin=preg_replace('/<div id="readme"[\s\S]*<\/main>/imu','<div></main>',$content_githubin);//(si tiene readme) desde readme hasta el </main> (metemos un <div> para arreglar un </div> solitario
 				$content_githubin=preg_replace('/<\/div>[\s]*<\/include-fragment>/imu','</div>',$content_githubin); //quitamos un include-fragment que sobraba
 				$content_githubin=preg_replace('/<time-ago[\s\S]*?<\/time-ago>/imu','',$content_githubin); //quitamos los time-ago
 				$content_githubin=preg_replace('/<a data-pjax=[\s\S]*?<\/a>/imu','',$content_githubin); //quitamos los <a data-pjax
 				$content_githubin=preg_replace('/<a style=\"opacity:0;\"[\s\S]*?<\/a>/imu','',$content_githubin);//quitamos contenido invisible (que ocupa espacio)
+				$content_githubin=preg_replace('/<\/main>[\s\S]*/imu','',$content_githubin);//desde </main> hasta el fin
 			 break;
 			 case 'file':
 				$content_githubin=preg_replace('/<!DOCTYPE[\s\S]*?<table/imu','<table id="github_file" style="white-space: pre;"',$content_githubin);
@@ -307,7 +310,7 @@ function githubin($atts)
 			fclose($myfile);
 		}
 	}
-	echo $content_githubin;
+	return $content_githubin;
 }
 // \s match any kind of invisible character & \S match any kind of visible character
 // [\s\S]* <-look until the last match ; [\s\S]*? <- look until the first match
