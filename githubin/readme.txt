@@ -2,7 +2,7 @@
 Contributors: lrdb
 Tags: github, github embed, embed
 Requires at least: 2.7.0
-Tested up to: 5.7.1
+Tested up to: 6.1.1
 Requires PHP: 5.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -74,6 +74,9 @@ put it as shortcode with the correct format:
 3. embed readme with or without images
 
 == Changelog ==
+
+2022-12-07
+*updated to work with last github content
 
 2021-05-10
 *fixed main repository file listing
